@@ -1,14 +1,15 @@
-CREATE DATABASE todoapp;
+CREATE DATABASE hdblog;
 
-CREATE TABLE todos (
-    id VARCHAR(255) PRIMARY KEY,
-    user_email VARCHAR(255),
-    title VARCHAR(30),
-    progress INT,
-    date VARCHAR(300)
+CREATE TABLE post (
+  id VARCHAR(255) PRIMARY KEY,
+  title VARCHAR(255),
+  text TEXT
 );
 
-CREATE TABLE users (
-    user_email VARCHAR(255) PRIMARY KEY,
-    hashed_password VARCHAR(255)
+CREATE TABLE event (
+  event_id INT,
+  post_id VARCHAR(255) REFERENCES post(id),
+  date TIMESTAMP,
+  place VARCHAR(255),
+  event_text TEXT
 );
