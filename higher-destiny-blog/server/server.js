@@ -23,20 +23,32 @@ app.get('/todos/:userEmail', async (req, res) => {
 
 })
 
-//create new task 
-app.post('/todos', async (req, res) => {
-	try {
-		const {user_email, title, progress,date} = req.body
-		console.log('server:', user_email, title, progress,date)
-		const id = uuidv4()
-		const newToDo = await pool.query('INSERT INTO todos (id, user_email, title, progress, date) VALUES ($1, $2, $3, $4, $5)',
-		[id, user_email, title, progress, date])
-		res.json(newToDo)
-	} catch (err) {
+app.get('/blog', async (req, res) => {
+	
+	try	{
+		const posts = await pool.query('SELECT * FROM post;')
+		res.json(posts.rows)
+		console.log(posts)
+  } catch (err) {
 		console.error(err)
 	}
 
 })
+
+//create new task 
+// app.post('/todos', async (req, res) => {
+// 	try {
+// 		const {user_email, title, progress,date} = req.body
+// 		console.log('server:', user_email, title, progress,date)
+// 		const id = uuidv4()
+// 		const newToDo = await pool.query('INSERT INTO todos (id, user_email, title, progress, date) VALUES ($1, $2, $3, $4, $5)',
+// 		[id, user_email, title, progress, date])
+// 		res.json(newToDo)
+// 	} catch (err) {
+// 		console.error(err)
+// 	}
+
+// })
 
 app.post('/blog', async (req, res) => {
 	try {

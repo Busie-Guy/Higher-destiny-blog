@@ -47,7 +47,10 @@ body {
 }
 
 .delete {
+    width: auto;
+    height: 30px;
     border: 2px solid rgba(137, 59, 59, 0.58);
+    border-radius: 15px;
     color: #7b191993;
     text-transform: capitalize;
 }
@@ -58,6 +61,25 @@ body {
     border: 2px solid rgba(137, 59, 59, 0.536);
     color: #7b191987;
     background-color: transparent;
+
+}
+
+.more-info {
+  width: auto;
+  height: 30px;
+  white-space: nowrap;
+  border: 2px solid rgba(59, 76, 137, 0.596);
+  border-radius: 15px;
+  color: #7b191993;
+  text-transform: capitalize;
+}
+.more-info:hover {
+  background-color: rgb(191, 190, 209);
+}
+.more-info:active {
+  border: 2px solid rgba(59, 88, 137, 0.564);
+  color: #7b191987;
+  background-color: transparent;
 
 }
 
@@ -221,7 +243,7 @@ textarea {
 /* Modal 2 */
 
 .modal2 {
-    width: 800px;
+    width: 80%;
     background-color: rgb(255,255,255);
     padding: 40px;
     border-radius: 10px;
@@ -236,22 +258,25 @@ textarea {
 /* Event indication */
 
 .event {
+  padding: 8px;
+  margin: 10px;
   display: flex;
   flex-direction: column;
   border: 2px solid rgb(197, 200, 204);
-  border-radius: 10px;
+  border-radius: 20px;
 }
 
 .event-more-info {
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
   border-radius: 10px;
 }
 
 .event-elements {
-    width: 800px;
-    padding: 10px;
-    border-radius: 10px;
+    width: 900px;
+    /* padding: 10px; */
+    /* border-radius: 15px; */
     display: flex;
     align-items: baseline;
     position: relative;

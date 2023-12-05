@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import EventList from './EventList'
 
-let id = 0;
 
 const Modal = () => {
  const [data, setData] = useState({
@@ -9,6 +8,8 @@ const Modal = () => {
   text: '',
   events: []
  })
+
+ const [idEvent, setIdEvent] = useState(1)
 
  const postData = async (e) => {
   e.preventDefault()
@@ -42,14 +43,15 @@ const Modal = () => {
  }
 
 
-  const handleAddNew = () => {
+  const handleAddNew = (e) => {
+    e.preventDefault();
     setData(data => {
       return {
         ...data,
         events: [
           ...data.events,
           {
-            id: data.events.length,
+            id: idEvent,
             date: new Date(),
             place: 'Kraków',
             eventText: ''
@@ -57,6 +59,7 @@ const Modal = () => {
         ]
       };
     });
+    setIdEvent(idEvent+1)
   }
 
   const handleChangeDate = (idChange, onChange) => {
@@ -123,23 +126,35 @@ const Modal = () => {
   }
 
  console.log(data)
+
+ const handleSubmit = (e) => {
+  postData(e);
+  setData({
+    title: '',
+    text: '',
+    events: []
+  })
+  console.log(data)
+ }
  
   return (
   <div className="overlay">
-    <div className="modal2">
+    <form name='modal' className='modal2'>
       Post title:
-      <input value={data.title} onChange={handleChangeTitle}/>
+      <input name='title' value={data.title} onChange={handleChangeTitle} required/>
       Post content:
-      <textarea value={data.text} onChange={handleChangeText}/>
-      <EventList 
+      <textarea name='text' value={data.text} onChange={handleChangeText}/>
+
+      {<EventList 
         events={data.events}
         onAddNew={handleAddNew} 
         onChangeDate={handleChangeDate}
         onChangePlace={handleChangePlace}
         onChangeEventText={handleChangeEventText}
-        onDelete={handleDelete}/>
-        <button onClick={postData}>Submit</button>
-    </div>
+        onDelete={handleDelete}/>}
+
+        <button name='submit' onClick={handleSubmit}>Submit</button>
+    </form>
   </div>
  ) 
 }

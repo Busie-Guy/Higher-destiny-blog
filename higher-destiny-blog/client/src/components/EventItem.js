@@ -3,7 +3,7 @@ import DateTimePicker from 'react-datetime-picker'
 import 'react-calendar/dist/Calendar.css';
 
 
-const EventItem = ({event, onChangeDate, onChangePlace, onChangeEventText, onDelete}) => {
+const EventItem = ({number, event, onChangeDate, onChangePlace, onChangeEventText, onDelete}) => {
 
 
   const [date, onChange] = useState(event.date);
@@ -20,16 +20,20 @@ const handleChangeSelect = (e) => {
  setIsShowInput(e.target.value === 'inne') 
  onChangePlace(event.id, e.target.value)}
 
- const handleChangeTextArea = () => {
+ const handleChangeTextArea = (e) => {
+  e.preventDefault();
   setIsShowTextArea(!isShowTextArea)
   onChangeEventText(event.id, '')
  }
+
+ 
 
   
   return (
     <div className='event'>
       <div className='event-more-info'>
         <div className='event-elements'>
+          {number}
           <DateTimePicker 
           onChange={handleDateTimeChange}
           value={date} 
@@ -54,14 +58,14 @@ const handleChangeSelect = (e) => {
               placeholder='Enter a place'/>}
         
         </div>
-          <button onClick={handleChangeTextArea}>
+          <button className='more-info' onClick={handleChangeTextArea}>
           {isShowTextArea ? 'Close' : 'More info'}
           </button>
 
-          <button onClick={() => onDelete(event.id)}>Delete</button>
+          <button className='delete' onClick={() => onDelete(event.id)}>Delete</button>
       </div>
-          {isShowTextArea && <textarea 
-          onChange={(e) => onChangeEventText(event.id, e.target.value)}/>}
+          {isShowTextArea && <textarea name='more-info'
+          onChange={(e) => {onChangeEventText(event.id, e.target.value)}}/>}
     </div>
   )
 }
