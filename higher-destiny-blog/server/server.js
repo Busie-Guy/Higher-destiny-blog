@@ -10,55 +10,40 @@ const jwt = require('jsonwebtoken')
 app.use(cors())
 app.use(express.json())
 
-// get all tasks
-app.get('/todos/:userEmail', async (req, res) => {
-	const userEmail = req.params.userEmail
-	try	{
-		const todos = await pool.query('SELECT * FROM todos WHERE user_email=$1', [userEmail])
-		res.json(todos.rows)
-		console.log(todos)
-  } catch (err) {
-		console.error(err)
-	}
 
-})
+// get all post
 
 app.get('/blog', async (req, res) => {
-	
-	try	{
-		const posts = await pool.query('SELECT * FROM post;')
-		res.json(posts.rows)
-		console.log(posts)
+  try {
+    const posts = await pool.query('SELECT * FROM post;');
+    const postsWithEvents = await Promise.all(
+      posts.rows.map(async (post) => {
+        const events = await pool.query('SELECT * FROM event WHERE post_id = $1', [post.id]);
+				const eventsWithDateObjects = events.rows.map(event => ({
+					...event,
+					date: event.date.toLocaleString('sv-SE', { timeZone: 'Europe/Warsaw' })
+				}));
+        return { ...post, events: eventsWithDateObjects };
+      })
+    );
+    res.json(postsWithEvents);
   } catch (err) {
-		console.error(err)
-	}
+    console.error(err);
+  }
+});
 
-})
 
-//create new task 
-// app.post('/todos', async (req, res) => {
-// 	try {
-// 		const {user_email, title, progress,date} = req.body
-// 		console.log('server:', user_email, title, progress,date)
-// 		const id = uuidv4()
-// 		const newToDo = await pool.query('INSERT INTO todos (id, user_email, title, progress, date) VALUES ($1, $2, $3, $4, $5)',
-// 		[id, user_email, title, progress, date])
-// 		res.json(newToDo)
-// 	} catch (err) {
-// 		console.error(err)
-// 	}
-
-// })
+//create new post
 
 app.post('/blog', async (req, res) => {
 	try {
 		const {title, text, events} = req.body
-		console.log('server:', title)
+		const date = new Date()
 		const id = uuidv4()
-		const newPost = await pool.query('INSERT INTO post (id, title, text) VALUES ($1, $2, $3)',
-		[id, title, text])
+		const newPost = await pool.query('INSERT INTO post (id, title, text, date) VALUES ($1, $2, $3, $4)',
+		[id, title, text, date])
 		events?.map(event => pool.query('INSERT INTO event (event_id, post_id, date, place, event_text) VALUES ($1, $2, $3, $4, $5)',
-		[event.id, id, event.date, event.place, event.eventText]),)
+		[event.event_id, id, event.date, event.place, event.event_text]),)
 		res.json(newPost)
 	} catch (err) {
 		console.error(err)
@@ -66,26 +51,43 @@ app.post('/blog', async (req, res) => {
 
 })
 
-//edit task
-app.put('/todos/:id', async (req, res) => {
+
+//edit post
+
+app.put('/blog/:id', async (req, res) => {
 	const { id } = req.params
-	const { user_email, title, progress, date } = req.body
+	const { title, text, events } = req.body
 
 	try {
-		const editToDo = await pool.query('UPDATE todos SET user_email = $1, title = $2, progress = $3, date = $4 WHERE id = $5;', 
-		[user_email, title, progress, date, id])
-		res.json(editToDo)
+		const editPost = await pool.query('UPDATE post SET title = $1, text = $2 WHERE id = $3;', 
+		[title, text, id])
+		await pool.query('DELETE FROM event WHERE post_id=$1', [id])
+		await events?.map(event => pool.query('INSERT INTO event (event_id, post_id, date, place, event_text) VALUES ($1, $2, $3, $4, $5)',
+		[event.event_id, id, event.date, event.place, event.event_text]),)
+		res.json(editPost)
 	} catch (err) {
 		console.error(err)
 	}
 })
 
+// //delete task
+// app.delete('/todos/:id', async (req, res) => {
+// 	const { id } = req.params
+// 	try {
+// 		const deleteToDo = await pool.query('DELETE FROM todos WHERE id = $1;', [id])
+// 		res.json(deleteToDo)
+// 	} catch (err) {
+// 		console.error(err)
+// 	}
+// })
+
 //delete task
-app.delete('/todos/:id', async (req, res) => {
+app.delete('/blog/:id', async (req, res) => {
 	const { id } = req.params
 	try {
-		const deleteToDo = await pool.query('DELETE FROM todos WHERE id = $1;', [id])
-		res.json(deleteToDo)
+		const deleteEvents = await pool.query('DELETE FROM event WHERE post_id = $1', [id])
+		const deletePost = await pool.query('DELETE FROM post WHERE id = $1;', [id])
+		res.json({deletePost,deleteEvents})
 	} catch (err) {
 		console.error(err)
 	}

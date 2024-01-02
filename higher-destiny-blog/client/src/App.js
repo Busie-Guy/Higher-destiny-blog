@@ -1,25 +1,25 @@
 import { useEffect, useState } from 'react'
-import ListItem from './components/ListItem.js'
-import ListHeader from "./components/ListHeader.js";
-import Auth from "./components/Auth.js"
 import { useCookies } from 'react-cookie'
-import EventList from './components/EventList.js'
-import Modal2 from './components/Modal2.js'
+import {  Routes, Route } from "react-router-dom"
+import Post from './components/Post.js'
+import Front from './Front.js';
+import Bar from './components/Bar.js';
+import Modal from "./components/Modal.js"
+
 
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(null)
-  const authToken = cookies.AuthToken
-  const userEmail = cookies.Email
-  const [tasks, setTasks] = useState(null)
+  const [posts, setPosts] = useState(null)
+  const [showModal, setShowModal] = useState(false)
 
 
   
 const getData = async () => {
 
   try {
-    const response = await fetch (`${process.env.REACT_APP_SERVERURL}/todos/${userEmail}`)
+    const response = await fetch (`${process.env.REACT_APP_SERVERURL}/blog`)
     const json = await response.json()
-    setTasks(json)
+    setPosts(json)
   } catch (err) {
     console.error(err)
   }
@@ -27,24 +27,44 @@ const getData = async () => {
 
 
 useEffect(()=> {
-  if(authToken){
-    getData()
-  }},
- [])
+  
+  getData()
+},
+[])
 
-//sort by date
-const sortedTask = tasks?.sort((a,b) => new Date(a.date) - new Date(b.date))
+const handleShutDownModal = (e) => {
+  setShowModal(false);
+}
+
+const sortedPost = posts?.sort((a,b) => (new Date(b.date) - new Date(a.date)))
+
+console.log(posts)
+ 
+
 
   return (
-    <div className="app">
-      
-      {!authToken && <Modal2/>} 
-      {authToken && 
-        <>     
-        <ListHeader listName={'Articles'} getData={getData}/>
-        {sortedTask?.map((task) => <ListItem key={task.id} task={task} getData={getData}/>)}
-        </>}
-    </div>
+  <div>   
+    <Bar showModal={() => setShowModal(true)}/>
+    <Routes>
+      <Route path='/' element={<Front 
+        data={sortedPost}/>} 
+      />
+        
+        {sortedPost?.map((post) => (
+          <Route 
+            key={post.id} 
+            path={`post/${post.id}`} 
+            element={
+              <Post 
+                post={post} 
+                shutdownModal={() => setShowModal(false)} 
+                getData={getData}
+              />} 
+            />
+          ))}
+      </Routes>
+      {showModal && <Modal modal="create" shutdownModal={handleShutDownModal} getData={getData}/>} 
+  </div>
   );
 }
 

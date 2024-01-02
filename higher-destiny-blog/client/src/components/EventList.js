@@ -17,9 +17,8 @@ const EventList = ({
       {events?.map((event, index) => {
           
           return (
-
           <EventItem 
-            key={event.id}
+            key={event.event_id}
             number={++index}
             event={event} 
             onChangeDate={onChangeDate}
@@ -27,7 +26,7 @@ const EventList = ({
             onChangeEventText={onChangeEventText}
             onDelete={onDelete}/>
             )
-    })}
+        })}
       <button onClick={onAddNew}>Add</button>
     </div>
   )
