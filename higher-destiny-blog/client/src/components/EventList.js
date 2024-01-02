@@ -27,7 +27,7 @@ const EventList = ({
             onDelete={onDelete}/>
             )
         })}
-      <button onClick={onAddNew}>Add</button>
+      <button className='red-button' onClick={onAddNew}>Add</button>
     </div>
   )
 }

@@ -89,42 +89,39 @@ width: 100%;
     background-color: transparent;
 }
 
-.edit {
+.green-button {
+    width: 100px;
+    height: 30px;
+    font-size: 15px;
+    border-radius: 15px;
     border: 2px solid rgba(59, 137, 72, 0.532);
     color: #197b2491;
     text-transform: capitalize;
 }
-.edit:hover {
-    background-color: rgb(190, 209, 194);
-}
-.edit:active {
-    border: 2px solid rgba(59, 137, 72, 0.653);
-    color: #197b2492;
-    background-color: transparent;
-
+.green-button:hover {
+    background-color: rgba(59, 137, 72, 0.532);
+    color: white;
 }
 
-.delete {
-    width: auto;
+
+.red-button {
+    width: 100px;
     height: 30px;
+    font-size: 15px;
     border: 2px solid rgba(137, 59, 59, 0.58);
     border-radius: 15px;
     color: #7b191993;
     text-transform: capitalize;
 }
-.delete:hover {
-    background-color: rgb(209, 190, 190);
-}
-.delete:active {
-    border: 2px solid rgba(137, 59, 59, 0.536);
-    color: #7b191987;
-    background-color: transparent;
-
+.red-button:hover {
+    background-color: rgba(137, 59, 59, 0.58);
+    color: white
 }
 
 .more-info {
   width: auto;
   height: 30px;
+  font-size: 15px;
   white-space: nowrap;
   border: 2px solid rgba(59, 76, 137, 0.596);
   border-radius: 15px;
@@ -134,39 +131,36 @@ width: 100%;
 .more-info:hover {
   background-color: rgb(191, 190, 209);
 }
-.more-info:active {
-  border: 2px solid rgba(59, 88, 137, 0.564);
-  color: #7b191987;
-  background-color: transparent;
 
-}
 
-.create {
+.blue-button {
+    margin: 5px;
+    width: 100px;
+    height: 30px;
+    font-size: 15px;
+    border-radius: 15px;
     border: 2px solid rgba(59, 76, 137, 0.596);
-    color: #19487b8f;
+    color: black;
+    background: rgba(181, 197, 255, 0.596);
     text-transform: capitalize;
 }
-.create:hover {
+.blue-button:hover {
     background-color: rgb(191, 190, 209);
 }
-.create:active {
-    border: 2px solid rgba(59, 88, 137, 0.564);
-    color: #19487b89;
-    background-color: transparent;
-}
 
-.signout {
-    border: 2px solid rgba(125, 137, 59, 0.596);
-    color: #6e7b198f;
+.yellow-button {
+    margin: 5px;
+    width: 100px;
+    height: 30px;
+    font-size: 15px;
+    border-radius: 15px;
+    border: 2px solid rgba(197, 222, 34, 0.596);
+    color: black;
+    background: rgba(181, 197, 255, 0.596);
     text-transform: capitalize;
 }
-.signout:hover {
+.yellow-button:hover {
     background-color: rgb(202, 209, 190);
-}
-.signout:active {
-    border: 2px solid rgba(114, 137, 59, 0.564);
-    color: #5c7b1989;
-    background-color: transparent;
 }
 
 input {
@@ -218,38 +212,31 @@ textarea {
     align-items: center;
 }
 
-.modal3 {
-    width: 700px;
-    background-color: rgb(255,255,255);
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: rgb(0,0,0,0.5) 0 6px 24px 0, rgba(0,0,0, 0.01) 0 0 0 1px;
-    display: inline-flex;
-    position: relative;
+.modal {
+  width: 80%;
+  background-color: rgb(255,255,255);
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: rgb(0,0,0,0.5) 0 6px 24px 0, rgba(0,0,0, 0.01) 0 0 0 1px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  
 }
 
-.modal .form-title-container {
-    display: flex;
-    justify-content: space-between;
+.modal .x {
+  margin: 10px;
+  color: rgba(0, 0, 0, 0.688);
+  border: 2px solid rgba(0, 0, 0, 0.631);
+  border-radius: 15px;
+  background-color: transparent;
 }
 
-.modal .form-title-container button {
-    border: none;
-    background-color: transparent;
+.x:hover {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.754);
 }
 
-.modal .form-title-container button:hover {
-    color: rgb(168, 49, 49);
-}
-
-.modal form {
-    display: flex;
-    flex-direction: column;
-}
-
-.modal label {
-    font-size: 13px;
-}
 
 /* Auth */
 
@@ -284,20 +271,6 @@ textarea {
     color: rgb(35,38,39)
 }
 
-/* Modal 2 */
-
-.modal {
-    width: 80%;
-    background-color: rgb(255,255,255);
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: rgb(0,0,0,0.5) 0 6px 24px 0, rgba(0,0,0, 0.01) 0 0 0 1px;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    
-}
-
 
 /* Event indication */
 
@@ -319,8 +292,6 @@ textarea {
 
 .event-elements {
     width: 900px;
-    /* padding: 10px; */
-    /* border-radius: 15px; */
     display: flex;
     align-items: baseline;
     position: relative;

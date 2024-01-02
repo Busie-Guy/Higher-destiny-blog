@@ -6,8 +6,8 @@ const Bar = ({showModal}) => {
         Higher Destiny Blog
       </div>
       <div>
-        <button onClick={showModal}>Add new</button>
-        <button>Sign In</button>
+        <button className="blue-button" onClick={showModal}>Add new</button>
+        <button className="yellow-button">Sign In</button>
       </div>
     </div>
   );

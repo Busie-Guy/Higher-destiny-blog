@@ -49,8 +49,9 @@ const Post = ({post, getData})=> {
 						</li>
 							)
 					})}
-					<button onClick={()=> setShowModal(true)}>Edit</button>
-					<button onClick={()=>setShowConfirmDelete(true)}>Delete</button>
+					<br/>
+					<button className="green-button" onClick={()=> setShowModal(true)}>Edit</button>
+					<button className="red-button" onClick={()=>setShowConfirmDelete(true)}>Delete</button>
 
 				</div>
 			<PlaceButtons/>

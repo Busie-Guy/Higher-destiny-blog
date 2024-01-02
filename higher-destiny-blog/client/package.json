@@ -11,7 +11,7 @@
     "react-cookie": "^6.1.1",
     "react-datetime-picker": "^5.5.3",
     "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "uuid": "^9.0.1",
     "web-vitals": "^2.1.4"
   },
@@ -41,5 +41,9 @@
   },
   "devDependencies": {
     "react-router-dom": "^6.20.1"
-  }
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC"
 }

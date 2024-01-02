@@ -163,7 +163,7 @@ const Modal = ({shutdownModal, getData, mode, post}) => {
     <div className="overlay">
       <form name='modal' className='modal'>
         <div>
-          <button onClick={handleCancel}>X</button>
+          <button className='x' onClick={handleCancel}>X</button>
         </div>
         Post title:
         <input name='title' maxLength={10} value={data.title} onChange={handleChangeTitle} required/>
@@ -178,7 +178,7 @@ const Modal = ({shutdownModal, getData, mode, post}) => {
           onChangeEventText={handleChangeEventText}
           onDelete={handleDelete}/>}
 
-        <button name='submit' onClick={handleSubmit}>Submit</button>
+        <button className='green-button' name='submit' onClick={handleSubmit}>Submit</button>
       </form>
     </div>
  ) 
