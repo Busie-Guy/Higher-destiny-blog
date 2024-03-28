@@ -9,7 +9,6 @@
 //   const [confirmPassword, setConfirmPassword] = useState(null)
 //   const [error, setError] = useState(null)
 
-//   console.log(cookies)
 
 //   const viewLogIn = (status) => {
 //     setError(null)

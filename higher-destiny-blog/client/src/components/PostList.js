@@ -7,13 +7,12 @@ const PostList = ({ data }) => {
     <div className="posts-container">
       {data?.map((post) => (
         <Link
+          className="link"
           key={post.id}
           to={`post/${post.id}`}>
-            <div>{post.title}</div>
+            <div className="title">{post.title}</div>
         </Link>    
       ))}
-        
-
     </div>
   );
 };
