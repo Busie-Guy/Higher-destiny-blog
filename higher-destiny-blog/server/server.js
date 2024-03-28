@@ -70,18 +70,8 @@ app.put('/blog/:id', async (req, res) => {
 	}
 })
 
-// //delete task
-// app.delete('/todos/:id', async (req, res) => {
-// 	const { id } = req.params
-// 	try {
-// 		const deleteToDo = await pool.query('DELETE FROM todos WHERE id = $1;', [id])
-// 		res.json(deleteToDo)
-// 	} catch (err) {
-// 		console.error(err)
-// 	}
-// })
 
-//delete task
+//delete post
 app.delete('/blog/:id', async (req, res) => {
 	const { id } = req.params
 	try {
@@ -94,51 +84,51 @@ app.delete('/blog/:id', async (req, res) => {
 })
 
 //sing up
-app.post('/signup', async (req, res) => {
-	const { email, password } = req.body
-	const salt =bcrypt.genSaltSync(10)
-	const hashPassword = bcrypt.hashSync(password, salt)
+// app.post('/signup', async (req, res) => {
+// 	const { email, password } = req.body
+// 	const salt =bcrypt.genSaltSync(10)
+// 	const hashPassword = bcrypt.hashSync(password, salt)
 
-	try {
-		const signUp = await pool.query('INSERT INTO users (user_email, hashed_password) VALUES ($1, $2)', 
-		[email, hashPassword])
+// 	try {
+// 		const signUp = await pool.query('INSERT INTO users (user_email, hashed_password) VALUES ($1, $2)', 
+// 		[email, hashPassword])
 
-		const token = jwt.sign({ email }, 'secred', { expiresIn: '1h' })
+// 		const token = jwt.sign({ email }, 'secred', { expiresIn: '1h' })
 
-		res.json({ email, token })
-	} catch (err) {
-		console.error(err)
-		if(err) {
-			res.json({ detail: err.detail })
-		}
-	}
+// 		res.json({ email, token })
+// 	} catch (err) {
+// 		console.error(err)
+// 		if(err) {
+// 			res.json({ detail: err.detail })
+// 		}
+// 	}
 
-})
+// })
 
 
 //login
-app.post('/login', async (req, res) => {
-	const { email, password } = req.body
-	console.log('LOGIN email:' ,email)
+// app.post('/login', async (req, res) => {
+// 	const { email, password } = req.body
+// 	console.log('LOGIN email:' ,email)
 	
-	try {
-		const users = await pool.query('SELECT * FROM users WHERE user_email=$1', [email])
+// 	try {
+// 		const users = await pool.query('SELECT * FROM users WHERE user_email=$1', [email])
 
-		if(!users.rows.length) return res.json({detail: 'User does not exist'})
+// 		if(!users.rows.length) return res.json({detail: 'User does not exist'})
 
-		const success = await bcrypt.compare(password, users.rows[0].hashed_password)
-		const token = jwt.sign({ email }, 'secred', { expiresIn: '1h' })
+// 		const success = await bcrypt.compare(password, users.rows[0].hashed_password)
+// 		const token = jwt.sign({ email }, 'secred', { expiresIn: '1h' })
 
-		if(success){
-			console.log('success email:', users.rows[0].user_email)
-			res.json({'email' : users.rows[0].user_email, token})
-		} else {
-			res.json({ detail : 'Login failed'})
-		}
-	} catch (err) {
-		console.error(err)
-	}
+// 		if(success){
+// 			console.log('success email:', users.rows[0].user_email)
+// 			res.json({'email' : users.rows[0].user_email, token})
+// 		} else {
+// 			res.json({ detail : 'Login failed'})
+// 		}
+// 	} catch (err) {
+// 		console.error(err)
+// 	}
 
-})
+// })
 
 app.listen(PORT, () => console.log(`Server running on ${PORT}`))
