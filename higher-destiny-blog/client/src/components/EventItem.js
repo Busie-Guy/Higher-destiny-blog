@@ -71,7 +71,7 @@ const handleChangeSelect = (e) => {
 
           <button className='red-button' onClick={() => onDelete(event.event_id)}>Delete</button>
       </div>
-          {(isShowTextArea || event.event_text !== "") && <textarea name='more-info' value={event.event_text}
+          {(isShowTextArea || event.event_text !== "") && <textarea name='more-info' placeholder='Enter more info about event...' value={event.event_text}
           onChange={(e) => {onChangeEventText(event.event_id, e.target.value)}}/>}
     </div>
   )

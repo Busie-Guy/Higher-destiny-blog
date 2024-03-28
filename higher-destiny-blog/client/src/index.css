@@ -48,8 +48,8 @@ body {
 }
 
 .posts-container {
-  padding: 20px;
-width: 100%;
+  padding: 40px 10px 30px 50px;
+  width: 100%;
 }
 
 .one-post {
@@ -61,7 +61,17 @@ width: 100%;
  
 }
 
-/* buttons */
+.title {
+  padding-bottom: 15px;
+  font-size: 24px;
+  color: black;
+}
+
+.link {
+  text-decoration: none;
+}
+
+/* buttons */ 
 
 .places {
   

@@ -166,7 +166,7 @@ const Modal = ({shutdownModal, getData, mode, post}) => {
           <button className='x' onClick={handleCancel}>X</button>
         </div>
         Post title:
-        <input name='title' maxLength={10} value={data.title} onChange={handleChangeTitle} required/>
+        <input name='title' maxLength={200} value={data.title} onChange={handleChangeTitle} required/>
         Post content:
         <textarea name='text' value={data.text} onChange={handleChangeText}/>
 
